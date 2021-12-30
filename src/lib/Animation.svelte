@@ -58,7 +58,6 @@
 		});
 		loadImage(urls).then((res) => {
 			images = res;
-
 			loading = false;
 			if (autoPlay) start();
 		});
@@ -66,5 +65,4 @@
 </script>
 
 <p>{currentFrameIndex}</p>
-<img src="/animations/{manifest.name}/{currentFrame.name}" alt="test" />
 <canvas class="w-full" bind:this={canvas} width="1920" height="1080" />
