@@ -65,4 +65,4 @@
 </script>
 
 <p>{currentFrameIndex}</p>
-<canvas class="w-full" bind:this={canvas} width="1920" height="1080" />
+<canvas class="w-full" bind:this={canvas} width="{manifest.dimensions.width}" height="{manifest.dimensions.height}" />
