@@ -11,6 +11,10 @@
 
 	const dispatch = createEventDispatcher();
 
+	let canvas;
+	let images = [];
+	$: context = canvas?.getContext('2d');
+
 	let interval;
 	let currentFrameIndex = 0;
 	$: currentFrame = manifest.frames[currentFrameIndex];
@@ -22,6 +26,10 @@
 		interval = setInterval(() => {
 			if (currentFrameIndex < manifest.frames.length - 1) {
 				currentFrameIndex += 1;
+				requestAnimationFrame(() => {
+					context.clearRect(0, 0, canvas.width, canvas.height);
+					context.drawImage(images[currentFrameIndex], 0, 0);
+				});
 			} else {
 				if (!loop) stop();
 				if (loop) reset();
@@ -48,7 +56,9 @@
 		const urls = manifest.frames.map((frame) => {
 			return `/animations/${manifest.name}/${frame.name}`;
 		});
-		loadImage(urls).then(() => {
+		loadImage(urls).then((res) => {
+			images = res;
+
 			loading = false;
 			if (autoPlay) start();
 		});
@@ -57,3 +67,4 @@
 
 <p>{currentFrameIndex}</p>
 <img src="/animations/{manifest.name}/{currentFrame.name}" alt="test" />
+<canvas class="w-full" bind:this={canvas} width="1920" height="1080" />

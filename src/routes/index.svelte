@@ -11,4 +11,4 @@
 		animation.start();
 	}}>Start</button
 >
-<Animation bind:this={animation} manifest={horseAnimationManifest} />
+<Animation bind:this={animation} manifest={horseAnimationManifest} autoPlay loop />
